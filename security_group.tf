@@ -25,6 +25,6 @@ resource "aws_security_group" "sg" {
   }
 
   tags = {
-    Name = "main-sg"
+    Name = "main-sg-yourname" # update with your name
   }
 }

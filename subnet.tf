@@ -5,6 +5,6 @@ resource "aws_subnet" "main" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "main-subnet"
+    Name = "main-subnet-yourname" #update with yourname
   }
 }

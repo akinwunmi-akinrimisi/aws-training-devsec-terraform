@@ -8,29 +8,35 @@ resource "aws_instance" "web" {
               # Update the instance and install necessary packages
               yum update -y
               yum install -y httpd wget unzip
-              
-              # Start Apache and enable it to start on boot
+
+              # Start Apache and enable it on boot
               systemctl start httpd
               systemctl enable httpd
-              
+
               # Navigate to the web root directory
               cd /var/www/html
-              
-              # Download a CSS template directly
+
+              # Remove default Apache files
+              rm -rf /var/www/html/*
+
+              # Download the website template
               wget https://www.free-css.com/assets/files/free-css-templates/download/page284/built-better.zip
-              
-              # Unzip the template and move the files to the web root
-              unzip built-better.zip -d /var/www/html/
-              mv /var/www/html/html/* /var/www/html/
-              
-              # Clean up unnecessary files
-              rm -r /var/www/html/html
-              rm built-better.zip
-              
-              # Restart Apache to apply changes
+
+              # Unzip into a temporary directory to avoid clutter
+              unzip built-better.zip -d /tmp/built-better
+
+              # Move the actual website content to web root
+              mv /tmp/built-better/html/* /var/www/html/
+
+              # Clean up temporary files
+              rm -rf /tmp/built-better
+              rm -f built-better.zip
+
+              # Restart Apache
               systemctl restart httpd
               EOF
-  )
+)
+
 
   tags = {
     Name = "main-instance-yourname" #update with your name

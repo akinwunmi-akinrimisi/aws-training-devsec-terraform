@@ -7,6 +7,6 @@ resource "aws_route_table" "rt" {
   }
 
   tags = {
-    Name = "main-route-table"
+    Name = "main-route-table-yourname" #update with your name
   }
 }
